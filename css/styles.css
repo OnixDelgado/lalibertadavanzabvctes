@@ -1,0 +1,467 @@
+:root {
+    --color-partido: #371959;
+    --padding-section: clamp(2rem, 5vw, 5rem); /* Nuevo: padding adaptable */
+    --fondo-blanco-claro: #f6f6f6;
+    --fondo-cuadros: #f8f8f8;
+    --texto: #333;
+}
+
+/* Estilos generales (originales) */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    line-height: 1.6;
+}
+
+header {
+    /* Tus estilos originales se mantienen */
+    background-color:var(--fondo-blanco-claro);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem; /* Original */
+    box-sizing: border-box; /* Evita desbordamiento */
+}
+
+.logo img {
+    height: 50px; /* Original */
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0 auto;
+    padding: 0.8rem 2rem;
+    gap: 1rem;
+    justify-content: center;
+    width: fit-content;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50px;
+    box-shadow: 
+        0 4px 20px rgba(55, 25, 89, 0.1),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(55, 25, 89, 0.08);
+}
+
+nav ul li {
+    position: relative;
+    padding: 0.5rem 0;
+}
+
+nav ul li a {
+    position: relative;
+    padding: 0.75rem 1.5rem;
+    color: #333;
+    font-weight: 600;
+    text-decoration: none;
+    border-left: 2px solid rgb(111, 0, 151);
+    border-radius: 10px;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 1;
+}
+
+/* Efecto hover desktop */
+nav ul li a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, 
+                var(--color-partido) 0%, 
+                #5d2a8a 100%);
+    border-radius: 10px;
+    z-index: -1;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+nav ul li a:hover {
+    color: white;
+    transform: translateY(-2px);
+}
+
+nav ul li a:hover::before {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Subrayado animado */
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background: var(--color-partido);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+nav ul li a:hover::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-radius: 35px;
+    background: linear-gradient(135deg, 
+                rgba(255,255,255,0.3) 0%, 
+                rgba(255,255,255,0) 50%);
+    z-index: -1;
+}
+
+.menu-toggle {
+    display: none; /* Original: oculto en desktop */
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    position: relative;
+    z-index: 1001;
+}
+
+/* Hero Section (original) */
+.hero {
+    position: relative;
+    height: 100vh;
+    overflow: hidden; /* Oculta slides fuera de vista */
+}
+
+.hero-carousel {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-content {
+    color: var(--fondo-blanco-claro);
+    position: absolute; /* Cambia de relative a absolute */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 20px;
+    text-align: center;
+    z-index: 10; /* Asegúrate que esté por encima del carrusel */
+}
+
+.carousel-slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1.5s ease, transform 1.5s ease;
+    transform: translateX(100%); /* Entra desde la derecha */
+    z-index: 1;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+    transform: translateX(0);
+    z-index: 2;
+}
+
+.carousel-slide.prev {
+    transform: translateX(-100%); /* Sale hacia la izquierda */
+    opacity: 0;
+}
+
+.carousel-slide {
+    background-size: cover;
+    background-position: center;
+}
+
+.carousel-slide::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.btn {
+    display: inline-block;
+    background: var(--color-partido);
+    color: #fff;
+    padding: 0.8rem 1.5rem;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background: var(--color-partido);
+}
+
+/* Propuestas Section (original) */
+.propuestas {
+    padding: 5rem 2rem;
+    text-align: center;
+    background: var(--fondo-blanco-claro);
+}
+
+.propuestas h2 {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+.propuestas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.propuesta-card {
+    background: var(--fondo-cuadros);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.propuesta-card:hover {
+    transform: translateY(-10px);
+}
+
+.propuesta-card i {
+    font-size: 3rem;
+    color: var(--color-partido);
+    margin-bottom: 1rem;
+}
+
+/* Candidato Section (original) */
+.candidato {
+    padding: 5rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.candidato-content {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+
+.candidato-img img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+}
+
+/* Contacto Section (original) */
+.contacto {
+    padding: 5rem 2rem;
+    background: var(--fondo-blanco-claro);
+    text-align: center;
+}
+
+#contact-form {
+    max-width: 600px;
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#contact-form input,
+#contact-form textarea {
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.social-links {
+    margin-top: 2rem;
+}
+
+.social-links a {
+    color: #333;
+    font-size: 2rem;
+    margin: 0 1rem;
+    transition: color 0.3s;
+}
+
+.social-links a:hover {
+    color: var(--color-partido);
+}
+
+/* Footer (original) */
+footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 2rem;
+}
+
+@media (min-width: 769px) and (max-width: 800px) {
+    nav ul li a {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+        transform: scale(0.95);
+        transition: all 0.3s ease; /* Animación suave */
+    }
+    
+    nav ul li a:hover {
+        transform: scale(0.98);
+    }
+}
+
+
+/* =============================================== */
+/* Mejoras de Responsividad (ADD-ON) */
+/* =============================================== */
+
+/* Mobile: Menú Hamburguesa */
+@media (max-width: 768px) {
+    nav ul {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        max-width: 260px; /* Máximo absoluto */
+        min-width: 220px; /* Mínimo para contenido */
+        height: 100vh;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5rem;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(15px);
+        border-radius: 0;
+        border-left: 1px solid rgba(55, 25, 89, 0.1);
+        box-shadow: -5px 0 25px rgba(55, 25, 89, 0.1);
+        padding: 0;
+        margin: 0;
+        transition: all 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+    }
+
+    nav ul.show {
+        right: 0;
+    }
+
+    nav ul li a {
+        font-size: 1rem;
+        padding: 0.8rem 1.5rem;
+        display: block;
+        width: 85%;
+        text-align: center;
+    }
+
+    /* Efecto hover mobile */
+    nav ul li a:hover {
+        background: var(--color-partido);
+        color: white;
+        transform: scale(1.05);
+    }
+
+    nav ul li a::after {
+        display: none; /* Ocultamos el subrayado en mobile */
+    }
+
+    /* Efecto "cascada" al abrir */
+    nav ul.show li {
+        animation: fadeInRight 0.5s ease forwards;
+        opacity: 0;
+    }
+
+    nav ul.show li:nth-child(1) { animation-delay: 0.1s; }
+    nav ul.show li:nth-child(2) { animation-delay: 0.2s; }
+    nav ul.show li:nth-child(3) { animation-delay: 0.3s; }
+    nav ul.show li:nth-child(4) { animation-delay: 0.4s; }
+
+    @keyframes fadeInRight {
+        from {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    /* Botón hamburguesa animado */
+    .menu-toggle {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 30px;
+        height: 24px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        z-index: 1000;
+    }
+
+    .menu-toggle span {
+        display: block;
+        width: 100%;
+        height: 3px;
+        background: var(--color-partido);
+        transition: all 0.3s ease;
+        transform-origin: center;
+    }
+
+    /* Animación cuando el menú está abierto */
+    .menu-toggle.active span:nth-child(1) {
+        transform: translateY(10px) rotate(45deg);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+        transform: translateY(-10px) rotate(-45deg);
+    }
+}
+
+/* Tablet: Ajustes intermedios */
+@media (min-width: 769px) and (max-width: 1023px) {
+    .propuestas-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas en tablet */
+    }
+
+    .candidato-content {
+        gap: 2rem;
+    }
+}
+
+/* Desktop: Pequeños refinamientos */
+@media (min-width: 1024px) {
+    .hero-content h1 {
+        font-size: 3.5rem; /* Título más grande */
+    }
+}

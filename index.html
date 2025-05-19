@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bella Vista Avanza | [Nombre del Candidato]</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header y Menú -->
+    <header>
+        <div class="logo">
+            <img src="assets/img/logo-bella-vista-avanza.png" alt="Logo Bella Vista Avanza">
+        </div>
+        <nav>
+            <button class="menu-toggle" aria-label="Menú">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </button>
+            <ul>
+                <li><a href="#top">Inicio</a></li>
+                <li><a href="#propuestas">Propuestas</a></li>
+                <li><a href="#candidato">Candidato</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Sección Hero -->
+    <section class="hero">
+        <div class="hero-carousel">
+            <!-- Imágenes del carrusel -->
+            <div class="carousel-slide active" style="background-image: url('../assets/img/fondo-hero-1.png')"></div>
+            <div class="carousel-slide" style="background-image: url('../assets/img/fondo-hero-2.png')"></div>
+            <div class="carousel-slide" style="background-image: url('../assets/img/fondo-hero-3.png')"></div>
+        </div>
+        <div class="hero-content">
+            <h1>Bella Vista Libre</h1>
+            <p>Menos Estado, Más Comunidad</p>
+            <a href="#propuestas" class="btn">Ver Propuestas</a>
+        </div>
+    </section>
+
+    <!-- Sección Propuestas -->
+    <section id="propuestas" class="propuestas">
+        <h2>Nuestras Propuestas</h2>
+        <div class="propuestas-grid">
+            <div class="propuesta-card">
+                <i class="fas fa-chart-line"></i>
+                <h3>Economía Local</h3>
+                <p>Reducción de impuestos municipales para emprendedores y creación de un Parque Industrial.</p>
+            </div>
+            <div class="propuesta-card">
+                <i class="fas fa-road"></i>
+                <h3>Infraestructura</h3>
+                <p>Reparación de calles y caminos rurales con mano de obra local.</p>
+            </div>
+            <div class="propuesta-card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Seguridad</h3>
+                <p>Vigilancia comunitaria y capacitación policial.</p>
+            </div>
+            <!-- Agrega más tarjetas según las propuestas -->
+        </div>
+    </section>
+
+    <!-- Sección Candidato -->
+    <section id="candidato" class="candidato">
+        <div class="candidato-content">
+            <div class="candidato-img">
+                <img src="assets/img/candidato.png" alt="[Nombre del Candidato]">
+            </div>
+            <div class="candidato-info">
+                <h2>Conoce al Candidato</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula.</p>
+                <a href="#" class="btn">Más sobre mí</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Contacto -->
+    <section id="contacto" class="contacto">
+        <h2>Sumate al Cambio</h2>
+        <form id="contact-form">
+            <input type="text" placeholder="Nombre" required>
+            <input type="email" placeholder="Email" required>
+            <textarea placeholder="Tu mensaje..." required></textarea>
+            <button type="submit" class="btn">Enviar</button>
+        </form>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Bella Vista Avanza. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="js/carrusel.js"></script>
+</body>
+</html>
