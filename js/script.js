@@ -21,3 +21,15 @@ document.querySelectorAll('nav ul li a').forEach(link => {
         }
     });
 });
+
+function toggleInfo(card) {
+    card.classList.toggle('active');
+    
+    // Cierra las otras tarjetas abiertas
+    document.querySelectorAll('.miembro-card').forEach(item => {
+        if(item !== card && item.classList.contains('active')) {
+            item.classList.remove('active');
+        }
+    });
+}
+

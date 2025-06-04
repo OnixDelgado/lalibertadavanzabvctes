@@ -4,6 +4,7 @@
     --fondo-blanco-claro: #f6f6f6;
     --fondo-cuadros: #f8f8f8;
     --texto: #333;
+    --header-height: 40px; /* Define la altura del header */
 }
 
 /* Estilos generales (originales) */
@@ -133,6 +134,21 @@ nav ul li a:hover::after {
     z-index: 1001;
 }
 
+/* Aplica a todas las secciones (excepto hero) */
+section:not(.hero) {
+    scroll-margin-top: var(--header-height);
+    padding-top: var(--header-height);
+    margin-top: calc(var(--header-height) * -0.6); /* Ajuste visual */
+}
+
+/* Corrección para anchor links */
+:target::before {
+    content: "";
+    display: block;
+    height: var(--header-height);
+    margin: calc(var(--header-height) * -1) 0 0;
+}
+
 /* Hero Section (original) */
 .hero {
     position: relative;
@@ -236,9 +252,9 @@ nav ul li a:hover::after {
 
 .propuestas-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    max-width: 1200px;
+    grid-template-columns: repeat(2, 1fr); /* Siempre 2 columnas */
+    gap: 20px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
@@ -261,59 +277,224 @@ nav ul li a:hover::after {
 }
 
 /* Candidato Section (original) */
-.candidato {
-    padding: 5rem 2rem;
-    max-width: 1200px;
+/* Estructura jerárquica */
+.equipo-fila {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.equipo-superior .miembro-card {
+    width: 45%; /* Dos tarjetas grandes */
+    max-width: 400px;
+    border: 2px solid var(--color-partido);
+}
+
+.equipo-inferior .miembro-card {
+    width: 30%; /* Tres tarjetas */
+    max-width: 300px;
+    min-width: 250px;
+}
+
+/* Diseño jerárquico */
+.cargo-destacado {
+    background: var(--color-partido);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+.comisiones {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+/* Estilos para las tarjetas del equipo */
+.miembro-card {
+    position: relative;
+    height: 350px;
+    perspective: 1000px;
+    cursor: pointer;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.5s;
+    background: white;
+}
+
+.miembro-front, .miembro-info {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: all 0.6s ease;
+}
+
+.miembro-info {
+    background: var(--color-partido);
+    color: white;
+    transform: rotateY(180deg);
+}
+
+.miembro-card img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 3px solid var(--color-partido);
+}
+
+.miembro-card h3 {
+    margin: 10px 0 5px;
+    color: var(--color-partido);
+}
+
+.miembro-info h3 {
+    color: white !important;
+}
+
+.miembro-card.active .miembro-front {
+    transform: rotateY(180deg);
+}
+
+.miembro-card.active .miembro-info {
+    transform: rotateY(0deg);
+}
+
+.btn-vermas {
+    margin-top: 15px;
+    padding: 8px 20px;
+    background: white;
+    color: var(--color-partido);
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.btn-vermas:hover {
+    background: #f0f0f0;
+}
+
+/* Responsividad de equipo*/
+@media (max-width: 1024px) {
+    .equipo-superior .miembro-card,
+    .equipo-inferior .miembro-card {
+        width: 45%; /* 2 columnas */
+    }
+}
+
+@media (max-width: 768px) {
+    .equipo-fila {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .equipo-superior .miembro-card,
+    .equipo-inferior .miembro-card {
+        width: 100%;
+        max-width: 350px;
+    }
+}
+
+/* Efectos hover (opcional) */
+.miembro-front:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* Contacto Section */
+
+.enlaces-bio {
+    text-align: center; /* Asegura que todo el contenido esté centrado */
+}
+
+.enlaces-bio h2,
+.enlaces-bio p {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    max-width: 80%; /* Opcional: para evitar que ocupen todo el ancho */
+    margin: 1rem;
+}
+
+.links-bio {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 500px;
     margin: 0 auto;
 }
 
-.candidato-content {
+.link-bio {
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    border: 1px solid #e0e0e0;
+    transition: all 0.3s;
     display: flex;
     align-items: center;
-    gap: 3rem;
+    justify-content: center;
+    gap: 10px;
 }
 
-.candidato-img img {
-    width: 100%;
-    max-width: 400px;
-    border-radius: 10px;
+.link-bio:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Contacto Section (original) */
-.contacto {
-    padding: 5rem 2rem;
-    background: var(--fondo-blanco-claro);
-    text-align: center;
+/* Colores personalizados por red social */
+.link-bio.whatsapp { background: #25D366; color: white; }
+.link-bio.whatsapp-channel { background: #075E54; color: white; }
+.link-bio.instagram { background: #E1306C; color: white; }
+.link-bio.facebook { background: #1877F2; color: white; }
+.link-bio.tiktok { background: #000000; color: white; }
+.link-bio.twitter { background: #000000; color: white; }
+.link-bio.youtube { background: #FF0000; color: white; }
+.link-bio.threads { background: #000000; color: white; }
+.link-bio.form { background: #6c5ce7; color: white; }
+
+/*icono de Threads*/
+.threads-icon {
+    width: 22px;
+    height: 22px;
+    margin-right: 10px;
+    vertical-align: middle; /* Alinea verticalmente con el texto */
 }
 
-#contact-form {
-    max-width: 600px;
-    margin: 2rem auto;
+/* Iconos */
+.link-bio i {
+    font-size: 20px;
+}
+
+/* Estilos para los subtítulos */
+.link-text {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    text-align: left;
 }
 
-#contact-form input,
-#contact-form textarea {
-    padding: 0.8rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-.social-links {
-    margin-top: 2rem;
-}
-
-.social-links a {
-    color: #333;
-    font-size: 2rem;
-    margin: 0 1rem;
-    transition: color 0.3s;
-}
-
-.social-links a:hover {
-    color: var(--color-partido);
+.link-subtext {
+    font-size: 12px;
+    font-weight: normal;
+    opacity: 0.8;
+    margin-top: 2px;
 }
 
 /* Footer (original) */
@@ -344,6 +525,11 @@ footer {
 
 /* Mobile: Menú Hamburguesa */
 @media (max-width: 768px) {
+
+    .propuestas-grid {
+        grid-template-columns: 1fr; /* 1 columna en móviles muy pequeños */
+    }
+
     nav ul {
         position: fixed;
         top: 0;

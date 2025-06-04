@@ -22,84 +22,235 @@
             <ul>
                 <li><a href="#top">Inicio</a></li>
                 <li><a href="#propuestas">Propuestas</a></li>
-                <li><a href="#candidato">Candidato</a></li>
-                <li><a href="#contacto">Contacto</a></li>
+                <li><a href="#equipo">Candidatos</a></li>
+                <li><a href="#enlaces">Contacto</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- Sección Hero -->
-    <section class="hero">
-        <div class="hero-carousel">
-            <!-- Imágenes del carrusel -->
-            <div class="carousel-slide active" style="background-image: url('/assets/img/fondo-hero-1.png')"></div>
-            <div class="carousel-slide" style="background-image: url('/assets/img/fondo-hero-2.png')"></div>
-            <div class="carousel-slide" style="background-image: url('/assets/img/fondo-hero-3.png')"></div>
-        </div>
-        <div class="hero-content">
-            <h1>Bella Vista Avanza</h1>
-            <p>Menos Estado, Más Comunidad</p>
-            <a href="#propuestas" class="btn">Ver Propuestas</a>
-        </div>
-    </section>
+    <main>
+        <!-- Sección Hero -->
+        <section class="hero">
+            <div class="hero-carousel">
+                <!-- Imágenes del carrusel -->
+                <div class="carousel-slide active" style="background-image: url('assets/img/fondo-hero-1.webp')"></div>
+                <div class="carousel-slide" style="background-image: url('assets/img/fondo-hero-2.webp')"></div>
+                <div class="carousel-slide" style="background-image: url('assets/img/fondo-hero-3.webp')"></div>
+            </div>
+            <div class="hero-content">
+                <h1>Bella Vista Avanza</h1>
+                <p>Menos Estado, Más Comunidad</p>
+                <a href="#propuestas" class="btn">Ver Propuestas</a>
+            </div>
+        </section>
 
-    <!-- Sección Propuestas -->
-    <section id="propuestas" class="propuestas">
+        <!-- Sección Propuestas -->
+        <section id="propuestas" class="propuestas">
+        <section id="propuestas" class="propuestas">
         <h2>Nuestras Propuestas</h2>
         <div class="propuestas-grid">
+            <!-- Fila 1 -->
             <div class="propuesta-card">
                 <i class="fas fa-chart-line"></i>
                 <h3>Economía Local</h3>
-                <p>Reducción de impuestos municipales para emprendedores y creación de un Parque Industrial.</p>
+                <p>Reducción de impuestos municipales para emprendedores.</p>
             </div>
             <div class="propuesta-card">
                 <i class="fas fa-road"></i>
                 <h3>Infraestructura</h3>
-                <p>Reparación de calles y caminos rurales con mano de obra local.</p>
+                <p>Reparación de calles y caminos rurales.</p>
             </div>
+
+            <!-- Fila 2 -->
             <div class="propuesta-card">
                 <i class="fas fa-shield-alt"></i>
                 <h3>Seguridad</h3>
                 <p>Vigilancia comunitaria y capacitación policial.</p>
             </div>
-            <!-- Agrega más tarjetas según las propuestas -->
-        </div>
-    </section>
-
-    <!-- Sección Candidato -->
-    <section id="candidato" class="candidato">
-        <div class="candidato-content">
-            <div class="candidato-img">
-                <img src="assets/img/candidato.png" alt="[Nombre del Candidato]">
-            </div>
-            <div class="candidato-info">
-                <h2>Conoce al Candidato</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula.</p>
-                <a href="#" class="btn">Más sobre mí</a>
+            <div class="propuesta-card">
+                <i class="fas fa-heartbeat"></i>
+                <h3>Salud</h3>
+                <p>Modernización de centros de salud y programas de prevención.</p>
             </div>
         </div>
     </section>
 
-    <!-- Sección Contacto -->
-    <section id="contacto" class="contacto">
-        <h2>Sumate al Cambio</h2>
-        <form id="contact-form">
-            <input type="text" placeholder="Nombre" required>
-            <input type="email" placeholder="Email" required>
-            <textarea placeholder="Tu mensaje..." required></textarea>
-            <button type="submit" class="btn">Enviar</button>
-        </form>
-        <div class="social-links">
-            <a href="#"><i class="fab fa-facebook"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-        </div>
-    </section>
+        <!-- Sección Candidato -->
+        <section id="equipo" class="equipo">
+            <h2>Nuestro Equipo</h2>
+            
+            <!-- Fila Superior: Intendente y Vice -->
+            <div class="equipo-fila equipo-superior">
+                <div class="miembro-card" onclick="toggleInfo(this)">
+                    <div class="miembro-front">
+                        <img src="assets/candidatos/intendente.png" alt="Intendente">
+                        <h3>Juan Doe</h3>
+                        <p>Intendente</p>
+                        <div class="cargo-destacado">Jefe Comunal</div>
+                    </div>
+                    <div class="miembro-info">
+                        <p>Abogado con 10 años de experiencia en gestión pública. Promueve la transparencia y el desarrollo local.</p>
+                        <a href="#" class="btn-vermas">Ver CV completo</a>
+                    </div>
+                </div>
+
+                <div class="miembro-card" onclick="toggleInfo(this)">
+                    <div class="miembro-front">
+                        <img src="assets/candidatos/vice.png" alt="Vice-Intendente">
+                        <h3>María Gómez</h3>
+                        <p>Vice-Intendente</p>
+                        <div class="cargo-destacado">Primera Acompañante</div>
+                    </div>
+                    <div class="miembro-info">
+                        <p>Ingeniera especializada en urbanismo. Impulsora de proyectos de infraestructura sostenible.</p>
+                        <a href="#" class="btn-vermas">Ver CV completo</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fila Inferior: 3 Concejales -->
+            <div class="equipo-fila equipo-inferior">
+                <div class="miembro-card" onclick="toggleInfo(this)">
+                    <div class="miembro-front">
+                        <img src="assets/candidatos/concejal1.png" alt="Concejal 1">
+                        <h3>Carlos Rodríguez</h3>
+                        <p>Concejal</p>
+                        <div class="comisiones">Seguridad · Obras Públicas</div>
+                    </div>
+                    <div class="miembro-info">
+                        <p>Experto en seguridad ciudadana con 8 años de servicio en comisiones vecinales.</p>
+                        <a href="#" class="btn-vermas">Ver proyectos</a>
+                    </div>
+                </div>
+
+                <div class="miembro-card" onclick="toggleInfo(this)">
+                    <div class="miembro-front">
+                        <img src="assets/candidatos/concejal2.png" alt="Concejal 2">
+                        <h3>Laura Méndez</h3>
+                        <p>Concejal</p>
+                        <div class="comisiones">Educación · Cultura</div>
+                    </div>
+                    <div class="miembro-info">
+                        <p>Ex directora escolar, especialista en políticas educativas inclusivas.</p>
+                        <a href="#" class="btn-vermas">Ver proyectos</a>
+                    </div>
+                </div>
+
+                <div class="miembro-card" onclick="toggleInfo(this)">
+                    <div class="miembro-front">
+                        <img src="assets/candidatos/concejal3.png" alt="Concejal 3">
+                        <h3>Roberto Sosa</h3>
+                        <p>Concejal</p>
+                        <div class="comisiones">Hacienda · Turismo</div>
+                    </div>
+                    <div class="miembro-info">
+                        <p>Contador público con experiencia en gestión financiera municipal.</p>
+                        <a href="#" class="btn-vermas">Ver proyectos</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Enlaces Rápidos -->
+        <section id="enlaces" class="enlaces-bio">
+            <div class="links-bio">
+                <h2>Contacto</h2>
+                <p>¡Javier Milei y Lisandro Almirón te necesitan!</p>
+
+                <!-- Formulario -->
+                <a href="[LINK_FORMULARIO]" target="_blank" class="link-bio form">
+                    <i class="fas fa-edit"></i>
+                    <div class="link-text">
+                        Fiscaliza por La Libertad Avanza
+                        <span class="link-subtext">Proximas Elecciones el " 31 de Agosto 2025 "</span>
+                    </div>
+                </a>
+
+                <h2>Redes Sociales</h2>
+
+                <!-- WhatsApp (Chat privado) -->
+                <a href="https://wa.me/+543777313897" target="_blank" class="link-bio whatsapp">
+                    <i class="fab fa-whatsapp"></i>
+                    <div class="link-text">
+                        WhatsApp (Chat Privado)
+                        
+                    </div>
+                </a>
+                
+                <!-- WhatsApp (Canal) -->
+                <a href="https://whatsapp.com/channel/0029VaOQEe0KQuJSj18kAt16" target="_blank" class="link-bio whatsapp-channel">
+                    <i class="fab fa-whatsapp"></i>
+                    <div class="link-text">
+                        WhatsApp (Canal)
+                        
+                    </div>
+                </a>
+
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/lalibertadavanzabvctes.oficial" target="_blank" class="link-bio instagram">
+                    <i class="fab fa-instagram"></i>
+                    <div class="link-text">
+                        Instagram
+                        
+                    </div>
+                </a>
+
+                <!-- Facebook -->
+                <a href="https://www.facebook.com/profile.php?id=61576957352010" target="_blank" class="link-bio facebook">
+                    <i class="fab fa-facebook-f"></i>
+                    <div class="link-text">
+                        Facebook
+                        
+                    </div>
+                </a>
+
+                <!-- TikTok -->
+                <a href="https://www.tiktok.com/@lalibertadavanzabvctes?is_from_webapp=1&sender_device=pc" target="_blank" class="link-bio tiktok">
+                    <i class="fab fa-tiktok"></i>
+                    <div class="link-text">
+                        TikTok
+                        
+                    </div>
+                </a>
+
+                <!-- Twitter/X -->
+                <a href="https://www.twitter.com/LLABVCorrientes" target="_blank" class="link-bio twitter">
+                    <i class="fab fa-twitter"></i>
+                    <div class="link-text">
+                        Twitter/X
+                        
+                    </div>
+                </a>
+
+                <!-- YouTube -->
+                <a href="http://www.youtube.com/@LaLibertadAvanzaBellaVistaCtes" target="_blank" class="link-bio youtube">
+                    <i class="fab fa-youtube"></i>
+                    <div class="link-text">
+                        YouTube
+                        
+                    </div>
+                </a>
+
+                <!-- Threads -->
+                <a href="https://www.threads.net/@lalibertadavanzabvctes.oficial" target="_blank" class="link-bio threads">
+                    <img src="assets/icon/thread-icon.svg" alt="Threads" class="threads-icon">
+                    <div class="link-text">
+                        Threads
+                        
+                    </div>
+                </a>
+            </div>
+        </section>
+    </main>
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Bella Vista Avanza. Todos los derechos reservados.</p>
+        <p>&copy; <span id="current-year">2025</span> Bella Vista Avanza. Todos los derechos reservados.</p>
     </footer>
+
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
 
     <script src="js/script.js"></script>
     <script src="js/carrusel.js"></script>
