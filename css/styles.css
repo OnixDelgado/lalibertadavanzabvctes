@@ -1,10 +1,13 @@
 :root {
-    --color-partido: #371959;
+    --color-partido: #5a2d8a;
+    --color-secundario: #ffd700;
+    --color-terciario: #f0e6ff;
     --padding-section: clamp(2rem, 5vw, 5rem); /* Nuevo: padding adaptable */
-    --fondo-blanco-claro: #f6f6f6;
+    --fondo-blanco-claro: #faf9ff;
     --fondo-cuadros: #f8f8f8;
     --texto: #333;
-    --header-height: 40px; /* Define la altura del header */
+    --texto-destacado: #5a2d8a;
+    --header-height: 50px; /* Define la altura del header */
 }
 
 /* Estilos generales (originales) */
@@ -29,6 +32,7 @@ header {
     align-items: center;
     padding: 1rem 2rem; /* Original */
     box-sizing: border-box; /* Evita desbordamiento */
+    border-bottom: solid 5px var(--color-partido);
 }
 
 .logo img {
@@ -264,10 +268,13 @@ section:not(.hero) {
     border-radius: 10px;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s;
+    background: white;
+    border-top: 3px solid var(--color-partido);
+    box-shadow: 0 5px 20px rgba(90, 45, 138, 0.1);
 }
 
 .propuesta-card:hover {
-    transform: translateY(-10px);
+    box-shadow: 0 8px 25px rgba(90, 45, 138, 0.25);
 }
 
 .propuesta-card i {
@@ -278,6 +285,13 @@ section:not(.hero) {
 
 /* Candidato Section (original) */
 /* Estructura jerárquica */
+
+.equipo h2 {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
 .equipo-fila {
     display: flex;
     justify-content: center;
@@ -423,13 +437,30 @@ section:not(.hero) {
     text-align: center; /* Asegura que todo el contenido esté centrado */
 }
 
-.enlaces-bio h2,
-.enlaces-bio p {
+.enlaces-bio h2:first-of-type {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
     max-width: 80%; /* Opcional: para evitar que ocupen todo el ancho */
-    margin: 1rem;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: -30px;
+}
+
+.enlaces-bio h2:nth-of-type(2) {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    max-width: 80%; /* Opcional: para evitar que ocupen todo el ancho */
+    font-size: 2.5rem;
+    text-align: center;
+}
+
+.enlaces-bio p {
+    font-family: 'Arial', sans-serif;
+    letter-spacing: 0.5px;
+    color: #000000;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.05);
 }
 
 .links-bio {
@@ -452,6 +483,15 @@ section:not(.hero) {
     align-items: center;
     justify-content: center;
     gap: 10px;
+}
+
+/* Conserva todos tus estilos existentes para .link-bio */
+.links-bio {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 500px;
+    margin: 0 auto;
 }
 
 .link-bio:hover {
@@ -497,12 +537,223 @@ section:not(.hero) {
     margin-top: 2px;
 }
 
+/* GOOGLE MAPS DE LA SEDE */
+
+.mapa-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1rem;
+    text-align: center;
+    background: var(--fondo-cuadros);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.mapa-titulo {
+    color: var(--color-partido);
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.mapa-titulo::before,
+.mapa-titulo::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, 
+        transparent, 
+        var(--color-secundario), 
+        transparent
+    );
+}
+
+.mapa-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* Relación 16:9 */
+    height: 0;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    border: 2px solid var(--color-terciario);
+}
+
+.mapa-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.btn-mapa {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.6rem 1.5rem;
+    background: var(--color-partido);
+    color: white;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    border: 2px solid transparent;
+}
+
+.btn-mapa:hover {
+    background: white;
+    color: var(--color-partido);
+    border-color: var(--color-partido);
+}
+
+/* Responsividad  de Mapa*/
+@media (max-width: 768px) {
+    .mapa-container {
+        margin: 1rem auto;
+        padding: 0.5rem;
+    }
+}
+
+/*Galeria de Fotos*/
+
+.galeria {
+    max-width: 1200px;
+    margin: 3rem auto;
+    padding: 0 1rem;
+}
+
+.galeria-titulo {
+    text-align: center;
+    color: var(--color-partido);
+    position: relative;
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+}
+
+.galeria-titulo::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: var(--color-secundario);
+    margin: 0.5rem auto 0;
+}
+
+.galeria-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin: 2rem 0;
+}
+
+.galeria-item {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    aspect-ratio: 4/3; /* Relación 4:3 */
+}
+
+.galeria-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.galeria-overlay {
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to top, rgba(90,45,138,0.9), transparent);
+    color: white;
+    padding: 1rem;
+    transition: bottom 0.3s ease;
+}
+
+.galeria-item:hover .galeria-overlay {
+    bottom: 0;
+}
+
+.galeria-item:hover img {
+    transform: scale(1.05);
+}
+
+.btn-galeria {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 2rem auto 0;
+    padding: 0.8rem 2rem;
+    background: var(--color-partido);
+    color: white;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    border: 2px solid var(--color-partido);
+}
+
+.btn-galeria:hover {
+    background: white;
+    color: var(--color-partido);
+}
+
+@media (max-width: 768px) {
+    .galeria-grid {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+    }
+    .galeria-item {
+        flex: 0 0 80%;
+        scroll-snap-align: start;
+    }
+}
+
+/* Efecto de zoom suave */
+@media (hover: hover) {
+    .galeria-item {
+        overflow: hidden;
+    }
+}
+
+/* Responsividad de Galeria*/
+@media (max-width: 768px) {
+    .galeria-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .galeria-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
 /* Footer (original) */
 footer {
+    margin-top: 20px;
     background: #333;
     color: #fff;
     text-align: center;
     padding: 2rem;
+    color: white;
+    position: relative;
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
 }
 
 @media (min-width: 769px) and (max-width: 800px) {

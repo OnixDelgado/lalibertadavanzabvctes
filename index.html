@@ -36,50 +36,49 @@
                 <div class="carousel-slide active" style="background-image: url('assets/img/fondo-hero-1.webp')"></div>
                 <div class="carousel-slide" style="background-image: url('assets/img/fondo-hero-2.webp')"></div>
                 <div class="carousel-slide" style="background-image: url('assets/img/fondo-hero-3.webp')"></div>
+                <div class="carousel-slide" style="background-image: url('assets/img/fondo-hero-4.webp')"></div>
             </div>
             <div class="hero-content">
                 <h1>Bella Vista Avanza</h1>
                 <p>Menos Estado, Más Comunidad</p>
-                <a href="#propuestas" class="btn">Ver Propuestas</a>
+                <!-- <a href="#propuestas" class="btn">Ver Propuestas</a> -->
             </div>
         </section>
 
         <!-- Sección Propuestas -->
         <section id="propuestas" class="propuestas">
-        <section id="propuestas" class="propuestas">
-        <h2>Nuestras Propuestas</h2>
-        <div class="propuestas-grid">
-            <!-- Fila 1 -->
-            <div class="propuesta-card">
-                <i class="fas fa-chart-line"></i>
-                <h3>Economía Local</h3>
-                <p>Reducción de impuestos municipales para emprendedores.</p>
-            </div>
-            <div class="propuesta-card">
-                <i class="fas fa-road"></i>
-                <h3>Infraestructura</h3>
-                <p>Reparación de calles y caminos rurales.</p>
-            </div>
+            <h2>Nuestras Propuestas</h2>
+            <div class="propuestas-grid">
+                <!-- Fila 1 -->
+                <div class="propuesta-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Economía Local</h3>
+                    <p>Reducción de impuestos municipales para emprendedores.</p>
+                </div>
+                <div class="propuesta-card">
+                    <i class="fas fa-road"></i>
+                    <h3>Infraestructura</h3>
+                    <p>Reparación de calles y caminos rurales.</p>
+                </div>
 
-            <!-- Fila 2 -->
-            <div class="propuesta-card">
-                <i class="fas fa-shield-alt"></i>
-                <h3>Seguridad</h3>
-                <p>Vigilancia comunitaria y capacitación policial.</p>
+                <!-- Fila 2 -->
+                <div class="propuesta-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Seguridad</h3>
+                    <p>Vigilancia comunitaria y capacitación policial.</p>
+                </div>
+                <div class="propuesta-card">
+                    <i class="fas fa-heartbeat"></i>
+                    <h3>Salud</h3>
+                    <p>Modernización de centros de salud y programas de prevención.</p>
+                </div>
             </div>
-            <div class="propuesta-card">
-                <i class="fas fa-heartbeat"></i>
-                <h3>Salud</h3>
-                <p>Modernización de centros de salud y programas de prevención.</p>
-            </div>
-        </div>
-    </section>
+        </section>
 
         <!-- Sección Candidato -->
         <section id="equipo" class="equipo">
-            <h2>Nuestro Equipo</h2>
-            
             <!-- Fila Superior: Intendente y Vice -->
+            <h2>Nuestro Equipo</h2>
             <div class="equipo-fila equipo-superior">
                 <div class="miembro-card" onclick="toggleInfo(this)">
                     <div class="miembro-front">
@@ -165,7 +164,7 @@
                         <span class="link-subtext">Proximas Elecciones el " 31 de Agosto 2025 "</span>
                     </div>
                 </a>
-
+                
                 <h2>Redes Sociales</h2>
 
                 <!-- WhatsApp (Chat privado) -->
@@ -242,6 +241,54 @@
             </div>
         </section>
     </main>
+
+    <!-- Mapa en Google Maps -->
+    <div class="mapa-container">
+        <h3 class="mapa-titulo">Sede de "La Libertad Avanza Bella Vista"</h3>
+        <div class="mapa-wrapper">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1450.6527149221545!2d-59.042885260695634!3d-28.50786411766383!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x944fab313a9e2b13%3A0x745cddeee0084e35!2sC.%20Salta%20818%2C%20W3432%20Bella%20Vista%2C%20Corrientes!5e0!3m2!1ses!2sar!4v1749098251474!5m2!1ses!2sar" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" 
+                width="600" 
+                height="450" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy"
+                class="mapa-iframe">
+            </iframe>
+        </div>
+        <a href="https://maps.app.goo.gl/s2zZUVGkNgXE1yzH6" target="_blank" class="btn-mapa">
+            <i class="fas fa-map-marker-alt"></i> Cómo llegar
+        </a>
+    </div>
+
+    <!-- Galeria -->
+
+    <section class="galeria">
+    <h2 class="galeria-titulo">Nuestra Sede en Imágenes</h2>
+    <div class="galeria-grid">
+        <!-- Item 1 -->
+        <div class="galeria-item">
+            <img src="assets/galeria/sede-1.jpg" alt="Fachada de la sede" loading="lazy">
+            <div class="galeria-overlay">
+                <p>Fachada principal</p>
+            </div>
+        </div>
+        
+        <!-- Item 2 -->
+        <div class="galeria-item">
+            <img src="assets/galeria/sede-2.jpg" alt="Interior de la sede" loading="lazy">
+            <div class="galeria-overlay">
+                <p>Sala de reuniones</p>
+            </div>
+        </div>
+        
+        <!-- Repetir para más imágenes -->
+    </div>
+    
+    <a href="#" class="btn-galeria">
+        <i class="fas fa-images"></i> Ver galería completa
+    </a>
+</section>
 
     <!-- Footer -->
     <footer>
