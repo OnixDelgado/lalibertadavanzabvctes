@@ -1,26 +1,50 @@
-// carrusel.js - Carrusel automático para sección Hero
+// Carrusel automático optimizado
 document.addEventListener('DOMContentLoaded', function() {
-    // Configuración inicial
+    // Elementos del DOM
     const slides = document.querySelectorAll('.carousel-slide');
     const hero = document.querySelector('.hero');
+    if (!slides.length) return;
+
+    // Configuración
     let currentSlide = 0;
     let interval;
-    const slideInterval = 5000; // 5 segundos (ajustable)
-    const transitionSpeed = 1500; // 1.5 segundos (debe coincidir con CSS)
+    const slideInterval = 5000;
+    const transitionSpeed = 1500;
 
-    // Función para cambiar al siguiente slide
-    function nextSlide() {
-        // Remueve clases del slide actual
+    // Precarga eficiente de imágenes
+    function preloadImages() {
+        const images = [
+            'assets/img/fondo-hero-1.webp',
+            'assets/img/fondo-hero-2.webp',
+            'assets/img/fondo-hero-3.webp',
+            'assets/img/fondo-hero-4.webp'
+        ];
+        
+        images.forEach(src => {
+            new Image().src = src;
+        });
+    }
+    preloadImages();
+
+    // Actualiza indicadores visuales
+    function updateIndicators() {
+        const indicators = document.querySelectorAll('.carousel-indicator');
+        indicators.forEach((indicator, index) => {
+            indicator.classList.toggle('active', index === currentSlide);
+        });
+    }
+
+    // Navegación entre slides
+    function goToSlide(index) {
         slides[currentSlide].classList.remove('active');
         slides[currentSlide].classList.add('prev');
         
-        // Calcula el siguiente slide (con loop)
-        currentSlide = (currentSlide + 1) % slides.length;
+        currentSlide = (index + slides.length) % slides.length;
         
-        // Activa el nuevo slide
         slides[currentSlide].classList.add('active');
+        updateIndicators();
         
-        // Limpia la clase 'prev' después de la animación
+        // Limpieza después de la transición
         setTimeout(() => {
             document.querySelectorAll('.carousel-slide.prev').forEach(slide => {
                 slide.classList.remove('prev');
@@ -28,34 +52,58 @@ document.addEventListener('DOMContentLoaded', function() {
         }, transitionSpeed);
     }
 
-    // Inicia el carrusel automático
+    function nextSlide() {
+        goToSlide(currentSlide + 1);
+    }
+
+    // Crea controles de navegación
+    function createIndicators() {
+        const indicatorsContainer = document.createElement('div');
+        indicatorsContainer.className = 'carousel-controls';
+        
+        slides.forEach((_, i) => {
+            const indicator = document.createElement('div');
+            indicator.className = 'carousel-indicator';
+            indicator.addEventListener('click', () => {
+                pauseCarousel();
+                goToSlide(i);
+                startCarousel();
+            });
+            indicatorsContainer.appendChild(indicator);
+        });
+        
+        hero.appendChild(indicatorsContainer);
+        updateIndicators();
+    }
+
+    // Control del carrusel automático
     function startCarousel() {
+        clearInterval(interval);
         interval = setInterval(nextSlide, slideInterval);
     }
 
-    // Pausa el carrusel (opcional al hacer hover)
     function pauseCarousel() {
         clearInterval(interval);
     }
 
-    // Inicialización
-    if (slides.length > 0) {
-        // Activa el primer slide
-        slides[0].classList.add('active');
-        
-        // Inicia el carrusel
-        startCarousel();
-        
-        // Pausa al interactuar (opcional)
+    // Eventos de interacción
+    function setupEventListeners() {
         hero.addEventListener('mouseenter', pauseCarousel);
         hero.addEventListener('mouseleave', startCarousel);
         hero.addEventListener('touchstart', pauseCarousel);
         hero.addEventListener('touchend', startCarousel);
     }
 
-    // Para control manual desde otros archivos (opcional)
-    window.carouselControls = {
+    // Inicialización
+    slides[0].classList.add('active');
+    createIndicators();
+    startCarousel();
+    setupEventListeners();
+
+    // API pública (opcional)
+    window.carouselAPI = {
         next: nextSlide,
+        prev: () => goToSlide(currentSlide - 1),
         pause: pauseCarousel,
         start: startCarousel
     };
