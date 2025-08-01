@@ -434,6 +434,7 @@ section:not(.hero) {
 /* Candidato Section (original) */
 /* Estructura jerárquica */
 /* Estilos generales para la sección */
+/* Estilos generales para la sección */
 .equipo {
     padding: 4rem 1.5rem;
     background-color: var(--fondo-blanco-claro);
@@ -467,12 +468,12 @@ section:not(.hero) {
     margin: 0 auto 3rem;
 }
 
-/* Estilos base para todas las tarjetas */
+/* Estilos base para todas las tarjetas - AHORA UNIFORMES */
 .miembro-card {
     position: relative;
     width: 100%;
-    max-width: 350px;
-    min-height: 400px;
+    max-width: 350px; /* Mismo tamaño para todas */
+    min-height: 420px; /* Altura uniforme */
     perspective: 1000px;
     cursor: pointer;
     border-radius: 10px;
@@ -483,14 +484,9 @@ section:not(.hero) {
     border-top: 4px solid var(--color-partido);
 }
 
-/* Diferenciación jerárquica */
+/* Diferenciación jerárquica SOLO visual (sin cambiar tamaño) */
 .equipo-superior .miembro-card {
-    max-width: 400px;
-    border-top-width: 6px;
-}
-
-.equipo-inferior .miembro-card {
-    max-width: 300px;
+    border-top-width: 6px; /* Mayor énfasis visual */
 }
 
 /* Parte frontal de la tarjeta */
@@ -505,16 +501,12 @@ section:not(.hero) {
 
 .miembro-imagen-container {
     position: relative;
-    width: 150px;
-    height: 150px;
+    width: 150px; /* Tamaño uniforme */
+    height: 150px; /* Tamaño uniforme */
     margin-bottom: 1.5rem;
 }
 
-.equipo-superior .miembro-imagen-container {
-    width: 180px;
-    height: 180px;
-}
-
+/* Eliminamos el tamaño especial para equipo-superior */
 .miembro-imagen {
     width: 100%;
     height: 100%;
@@ -541,15 +533,12 @@ section:not(.hero) {
 .miembro-card h3 {
     color: var(--color-partido);
     margin: 0.5rem 0;
-    font-size: 1.4rem;
+    font-size: 1.4rem; /* Tamaño uniforme */
     position: relative;
     padding-bottom: 0.5rem;
 }
 
-.equipo-superior .miembro-card h3 {
-    font-size: 1.6rem;
-}
-
+/* Eliminamos el tamaño especial para equipo-superior */
 .miembro-card h3::after {
     content: '';
     position: absolute;
@@ -589,7 +578,7 @@ section:not(.hero) {
     transform: translateX(3px);
 }
 
-/* Parte trasera de la tarjeta (info) - Manteniendo tu efecto giratorio */
+/* Parte trasera de la tarjeta (info) */
 .miembro-front, .miembro-info {
     position: absolute;
     width: 100%;
@@ -625,8 +614,7 @@ section:not(.hero) {
 
 /* Responsividad */
 @media (max-width: 1024px) {
-    .equipo-superior .miembro-card,
-    .equipo-inferior .miembro-card {
+    .miembro-card {
         max-width: 320px;
     }
 }
@@ -644,8 +632,8 @@ section:not(.hero) {
     }
     
     .miembro-imagen-container {
-        width: 130px !important;
-        height: 130px !important;
+        width: 130px;
+        height: 130px;
     }
 }
 
