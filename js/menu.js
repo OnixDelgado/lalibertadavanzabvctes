@@ -164,3 +164,17 @@ window.addEventListener('scroll', function() {
         menuToggle.classList.remove('active');
     }
 });
+
+document.querySelectorAll('.acordeon-titulo').forEach(boton => {
+    boton.addEventListener('click', () => {
+        const item = boton.parentNode;
+        item.classList.toggle('active');
+        
+        // Cerrar otros acordeones al abrir uno nuevo (opcional)
+        document.querySelectorAll('.acordeon-item').forEach(otherItem => {
+            if(otherItem !== item && otherItem.classList.contains('active')) {
+                otherItem.classList.remove('active');
+            }
+        });
+    });
+});

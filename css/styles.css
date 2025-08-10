@@ -431,7 +431,96 @@ section:not(.hero) {
     }
 }
 
-/* Candidato Section (original) */
+
+
+/* efecto acordeon de propuestas */
+
+/* Estilos para el acordeón */
+.acordeon-propuestas {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.acordeon-item {
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background: white;
+}
+
+.acordeon-titulo {
+    width: 100%;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--color-partido);
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.3s ease;
+}
+
+.acordeon-titulo:hover {
+    background: var(--color-terciario);
+}
+
+.acordeon-titulo h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.acordeon-titulo i {
+    font-size: 1.5rem;
+}
+
+.acordeon-icono {
+    font-size: 1.5rem;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+}
+
+.acordeon-contenido {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    padding: 0 1.5rem;
+    background: white;
+}
+
+.acordeon-item.active .acordeon-contenido {
+    max-height: 2000px; /* Ajusta según necesidad */
+    padding: 1.5rem;
+}
+
+.acordeon-item.active .acordeon-icono {
+    transform: rotate(45deg);
+}
+
+.propuestas-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.propuestas-list li {
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.propuestas-list li:before {
+    content: "•";
+    color: var(--color-partido);
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
 /* Estructura jerárquica */
 /* Estilos generales para la sección */
 /* Estilos generales para la sección */
