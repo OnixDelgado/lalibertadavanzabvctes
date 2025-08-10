@@ -157,24 +157,46 @@ document.addEventListener('DOMContentLoaded', function() {
     // Tu código existente del toggle...
 });
 
-// Modifica tu event listener para cerrar al hacer scroll
-window.addEventListener('scroll', function() {
-    if (navMenu.classList.contains('show')) {
-        navMenu.classList.remove('show');
-        menuToggle.classList.remove('active');
-    }
-});
-
+// Acordeón de propuestas mejorado
 document.querySelectorAll('.acordeon-titulo').forEach(boton => {
-    boton.addEventListener('click', () => {
-        const item = boton.parentNode;
-        item.classList.toggle('active');
+    boton.addEventListener('click', function(e) {
+        e.preventDefault();
+        const item = this.parentNode;
+        const contenido = item.querySelector('.acordeon-contenido');
+        const icono = this.querySelector('.fa-chevron-down');
         
-        // Cerrar otros acordeones al abrir uno nuevo (opcional)
-        document.querySelectorAll('.acordeon-item').forEach(otherItem => {
-            if(otherItem !== item && otherItem.classList.contains('active')) {
-                otherItem.classList.remove('active');
+        // Cerrar otros acordeones primero
+        document.querySelectorAll('.acordeon-item').forEach(el => {
+            if (el !== item) {
+                el.classList.remove('active');
+                el.querySelector('.acordeon-contenido').style.maxHeight = '0';
+                el.querySelector('.acordeon-contenido').style.padding = '0 1.8rem';
+                el.querySelector('.fa-chevron-down').style.transform = 'rotate(0)';
             }
         });
+        
+        // Alternar el actual
+        item.classList.toggle('active');
+        
+        if (item.classList.contains('active')) {
+            contenido.style.maxHeight = contenido.scrollHeight + 'px';
+            contenido.style.padding = '0 1.8rem 1.8rem';
+            icono.style.transform = 'rotate(180deg)';
+            
+            // Scroll suave si es necesario (solo en móvil)
+            if (window.innerWidth < 768) {
+                const rect = item.getBoundingClientRect();
+                if (rect.bottom > window.innerHeight) {
+                    window.scrollBy({
+                        top: rect.top - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        } else {
+            contenido.style.maxHeight = '0';
+            contenido.style.padding = '0 1.8rem';
+            icono.style.transform = 'rotate(0)';
+        }
     });
 });
