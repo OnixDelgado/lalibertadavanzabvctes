@@ -574,11 +574,37 @@ section:not(.hero) {
         font-size: 0.95rem;
     }
 }
+
+@media (max-width: 768px) {
+    .acordeon-titulo h3 {
+        font-size: 1rem; /* Tamaño reducido */
+        flex-wrap: wrap; /* Permite múltiples líneas si es necesario */
+        line-height: 1.3; /* Mejor espaciado */
+    }
+    
+    /* Opcional: Ajustar específicamente este título */
+    .acordeon-item:nth-child(2) .acordeon-titulo h3 {
+        font-size: 0.95rem; /* Un poco más pequeño solo para este */
+        word-break: break-word; /* Rompe palabras largas */
+    }
+    
+    /* Ajustar padding para compensar */
+    .acordeon-titulo {
+        padding: 1rem 1.2rem;
+    }
+    
+    /* Ajustar iconos */
+    .acordeon-titulo i {
+        font-size: 1.1rem;
+        margin-left: 0.5rem; /* Espacio adicional */
+    }
+}
+
 /* Estructura jerárquica */
 /* Estilos generales para la sección */
 /* Estilos generales para la sección */
 .equipo {
-    padding: 4rem 1.5rem;
+    padding: rem 1.5rem;
     background-color: var(--fondo-blanco-claro);
     position: relative;
 }
