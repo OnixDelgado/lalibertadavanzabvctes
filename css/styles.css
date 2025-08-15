@@ -279,6 +279,18 @@ section:not(.hero) {
     transition: background 0.3s;
 }
 
+/* Hero image switching for desktop */
+@media (min-width: 1024px) {
+    .carousel-slide.active {
+        background-image: url('../assets/img/fondo-hero-2.webp') !important;
+    }
+    
+    /* Opcional: si quieres que todas las slides usen fondo-hero-2 en desktop */
+    .carousel-slide {
+        background-image: url('../assets/img/fondo-hero-2.webp');
+    }
+}
+
 .carousel-indicator.active {
     background: white;
     transform: scale(1.2);
@@ -313,9 +325,21 @@ section:not(.hero) {
 /* Propuestas Section (original) */
 /* Estilos mejorados para la sección de propuestas */
 .propuestas {
+    position: relative;
+    z-index: 1;
     padding: 4rem 1.5rem;
     background-color: var(--fondo-blanco-claro);
     position: relative;
+}
+
+.acordeon-item {
+    overflow: visible; /* Permite que el contenido se muestre */
+}
+
+/* Si tienes un margen negativo, ajústalo */
+section:not(.hero) {
+    margin-top: 0; /* Elimina el margen negativo si lo hay */
+    scroll-margin-top: var(--header-height);
 }
 
 .propuestas h2 {
@@ -605,6 +629,8 @@ section:not(.hero) {
 /* Estilos generales para la sección */
 .equipo {
     padding: rem 1.5rem;
+    position: relative;
+    z-index: 2;
     background-color: var(--fondo-blanco-claro);
     position: relative;
 }
