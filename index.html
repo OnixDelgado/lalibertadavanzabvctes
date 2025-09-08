@@ -3,638 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Libertad Avanza Bella Vista</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <title>Imagen a Pantalla Completa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #371959;
+        }
+        
+        .fullscreen-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #371959;
+        }
+        
+        .fullscreen-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        /* Ocultar imágenes inicialmente y mostrar solo la adecuada */
+        .desktop-img, .mobile-img {
+            display: none;
+        }
+        
+        /* Mostrar imagen de escritorio por defecto */
+        .desktop-img {
+            display: block;
+        }
+        
+        /* En móviles, mostrar imagen móvil y ocultar desktop */
+        @media (max-width: 768px) {
+            .desktop-img {
+                display: none;
+            }
+            .mobile-img {
+                display: block;
+            }
+        }
+        
+        /* Efecto de carga */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #371959;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 122, 28, 0.3);
+            border-radius: 50%;
+            border-top-color: #ff7a1c;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .loaded .loader {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Mensaje de error si las imágenes no cargan */
+        .error-message {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+            background-color: rgba(231, 76, 60, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 1000;
+        }
+    </style>
 </head>
-<body>
-    <!-- Header y Menú -->
-    <header>
-        <div class="logo">
-            <img src="assets/img/logo-bella-vista-avanza.png" alt="Logo Bella Vista Avanza">
-        </div>
-        <nav>
-            <button class="menu-toggle" aria-label="Menú">
-                <span class="line"></span>
-                <span class="line"></span>
-                <span class="line"></span>
-            </button>
-            <ul>
-                <li>
-                        <a href="#">
-                            <i class="fas fa-home"></i> Inicio
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#propuestas">
-                            <i class="fas fa-bullhorn"></i> Propuestas
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#equipo">
-                            <i class="fas fa-users"></i> Candidatos
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#ubicacion">
-                            <i class="fas fa-map-marker-alt"></i> Ubicación
-                        </a>
-                    </li>
-                    <li>
-                        <!--
-                        <a href="#galeria">
-                            <i class="fas fa-camera"></i> Galería
-                        </a>
-                        -->
-                    </li>
-                    <li>
-                        <a href="#enlaces">
-                            <i class="fas fa-globe"></i> Redes Sociales
-                        </a>
-                    </li>
-            </ul>
-        </nav>
-    </header>
-
-    <main>
-        <!-- Sección Hero -->
-        <section class="hero">
-            <div class="hero-carousel">
-                <!-- Imágenes del carrusel -->
-                <div class="carousel-slide active" style="background-image: url('assets/img/fondo-hero-1.webp')"></div>
-                <div class="carousel-slide" style="background-image: url('assets/img/fondo-hero-2.webp')"></div>
-                <div class="carousel-slide" style="background-image: url('assets/img/fondo-hero-3.webp')"></div>
-                <div class="carousel-slide" style="background-image: url('assets/img/fondo-hero-4.webp')"></div>
-            </div>
-            <div class="hero-content">
-                <h1>La Libertad Avanza Bella Vista</h1>
-                <h2></h2>
-                <p></p>
-                <!-- <a href="#propuestas" class="btn">Ver Propuestas</a> -->
-            </div>
-        </section>
-
-<!-- Sección Propuestas con Acordeón Mejorado -->
-<section id="propuestas" class="propuestas">
-    <div class="propuestas-header">
-        <h2>Nuestras Propuestas</h2>
+<body class="loading">
+    <div class="loader">
+        <div class="spinner"></div>
     </div>
-    <div class="acordeon-propuestas">
-
-<!-- Sección Gestion Municipal -->
-<div class="acordeon-item">
-    <button class="acordeon-titulo">
-        <i class="fas fa-landmark"></i>
-        <h3>Gestión Municipal</h3>
-        <span class="acordeon-icono"><i class="fas fa-chevron-down"></i></span>
-    </button>
-            <div class="acordeon-contenido">
-                <ul class="propuestas-list">
-                    <li><strong>Unificación de secretarías y departamentos:</strong> Reorganizar las distintas áreas municipales para reducir gastos operativos, eliminar estructuras duplicadas y optimizar el uso de recursos. Siguiendo el ejemplo de reorganización ministerial a nivel nacional, esta medida permitirá un funcionamiento más ágil y con menos costos, brindando además un punto único de atención para que los vecinos realicen todos sus trámites de manera más simple y rápida.</li>
-                    <li><strong>Protección del empleo público:</strong> Los trabajadores municipales no serán despedidos, sino reasignados según sus capacidades. Los recortes se aplicarán únicamente a cargos políticos innecesarios o a quienes no cumplan sus funciones, evitando el favoritismo y exigiendo compromiso laboral real.</li>
-                    <li><strong>Verificación y actualización de las remuneraciones del personal municipal:</strong> Vamos a garantizar sueldos justos y acordes a sus funciones.</li>
-                    <li><strong>Auditoría del gasto municipal:</strong> Revisiones periódicas para identificar gastos innecesarios, detectar posibles irregularidades y garantizar un uso responsable y eficiente de los fondos públicos.</li>
-                    <li><strong>Transparencia total:</strong> Publicación online, de libre acceso y en tiempo real, sobre ingresos, gastos y ejecución presupuestaria, para que cada vecino pueda saber con claridad en qué se utilizan los recursos municipales.</li>
-                    <li><strong>Pauta 0:</strong> Eliminación total de la pauta oficial para medios de televisión, radios y portales digitales. No vamos a gastar el dinero de los vecinos en pagar para que hablen bien de nuestra gestión. La confianza se ganará con hechos, no con propaganda.</li>
-                    <li><strong>Control de combustible para vehículos municipales: </strong>
-                    Eliminar el actual sistema de tickets de combustible, que ha permitido abusos y uso indebido para vehículos particulares, reemplazándolo por un sistema moderno y transparente. Cada vehículo municipal contará con un código QR único vinculado a su patente y datos oficiales. En las estaciones de servicio, este QR será escaneado para validar la carga exclusivamente en vehículos autorizados, garantizando así un uso correcto de los recursos y evitando que el dinero de los vecinos se destine a fines personales.</li>
-                    <li><strong>Simplificación administrativa:</strong> Modernizar y agilizar trámites, reduciendo la burocracia y eliminando barreras que dificulten la gestión para ciudadanos, emprendedores e inversores, asegurando una respuesta rápida y sin hacer perder tiempo al vecino.</li>
-                    <li><strong>Reducción de impuestos en patentamientos:</strong> Implementar bajas en los impuestos aplicados al patentamiento de vehículos con el fin de aliviar la carga fiscal de los vecinos, fomentar el cumplimiento tributario y estimular la actividad económica local.</li>
-                </ul>
-            </div>
-        </div>
-
-
-        <!-- Seguridad y tránsito -->
-        <div class="acordeon-item">
-            <button class="acordeon-titulo">
-                <i class="fas fa-shield-alt"></i>
-                <h3>Seguridad y Tránsito</h3>
-                <span class="acordeon-icono"><i class="fas fa-chevron-down"></i></span>
-            </button>
-            <div class="acordeon-contenido">
-                <ul class="propuestas-list">
-                    <li><strong>Implementación del DTS (Dirección de Tránsito y Seguridad):</strong> Consta de incorporar vehículos conducidos por inspectores municipales que cuenten con un policía provincial como acompañante, cuyo adicional será cubierto por la municipalidad. Estas unidades estarán equipadas con trackers para monitorear los recorridos en tiempo real, garantizando la presencia y cobertura en todos los barrios.</li>
-                    <li><strong>Ampliación del sistema de videovigilancia:</strong> agregaremos nuevas cámaras en zonas críticas y barrios periféricos, priorizando las áreas con mayor índice de incidentes.</li>
-                    <!--<li><strong>Tolerancia cero al vandalismo:</strong> Aplicación de multas y sanciones ejemplares a quienes dañen bienes públicos o perturben el orden en la vía pública</li>-->
-                    <li><strong>Actualización del sistema de licencias:</strong> Extender la vigencia del carnet de conducir hasta 5 años y eliminar la VTV como requisito para obtener dicho carnet en nuestra municipalidad, siempre respetando la normativa nacional y evitando burocracia innecesaria. El objetivo es que los vecinos puedan realizar todo el trámite en Bella Vista y en el mismo día, sin tener que trasladarse a otras localidades para obtener su licencia de manera más ágil.</li>
-
-                </ul>
-            </div>
-        </div>
-
-        <!-- Infraestructura y Servicios públicos -->
-        <div class="acordeon-item">
-            <button class="acordeon-titulo">
-                <i class="fas fa-building"></i>
-                <h3>Infraestructura y Servicios Públicos</h3>
-                <span class="acordeon-icono"><i class="fas fa-chevron-down"></i></span>
-            </button>
-            <div class="acordeon-contenido">
-                <ul class="propuestas-list">
-                    <li><strong>Agua:</strong> Impulsar la extensión de la red de agua potable en los barrios que actualmente no cuentan con este servicio esencial, garantizando el acceso equitativo al agua segura para todos los vecinos de nuestra ciudad.</li>
-                    <li><strong>Luz:</strong> Promover la modernización de la red de alumbrado público municipal mediante un Plan de Mejoramiento Barrial, con el objetivo de optimizar la calidad del servicio eléctrico, fortalecer la seguridad en los espacios públicos y garantizar una cobertura eficiente en todos los sectores de la ciudad.</li>
-                    <li><strong>Cloaca:</strong> Ampliación de la red cloacal en los sectores que aún no cuentan con este servicio, priorizando la salud pública, el desarrollo urbano sostenible y la mejora de la calidad de vida de los vecinos.</li>
-                    <li><strong>Basura:</strong> Impulsar una mejora del sistema de recolección de residuos, optimizando la eficiencia del servicio y garantizando condiciones laborales dignas para los trabajadores del área. Se revisarán los mecanismos de tercerización vigentes, con el objetivo de lograr un sistema más transparente, seguro y sustentable. Además, se incorporarán recorridos y soluciones para acceder a los barrios y zonas donde actualmente no llega el camión de recolección, asegurando así que todos los vecinos cuenten con este servicio esencial.</li>
-                    <li><strong>Asfaltado y bacheo prioritario: </strong>
-                    Puesta en marcha de obras de asfaltado y bacheo en los distintos barrios de la ciudad, priorizando las zonas más deterioradas y de mayor circulación para mejorar la movilidad y la seguridad vial.</li>
-                    <li><strong>Colectora completa: </strong>Se propone finalizar las obras de la colectora en toda su extensión, de un extremo al otro de la ciudad, mejorando la conectividad y reforzando la seguridad vial para todos los vecinos.</li>
-                    <!--<li>Mejoramiento de las veredas y paseos públicos peatonales, etc.</li>
-                    <li>Impulsar un programa de arborización en la ciudad, priorizando veredas y espacios públicos. Se establecerán sanciones para quienes talen o extraigan árboles sin autorización, promoviendo así el cuidado del entorno.</li>-->
-                    <li><strong>Ampliación y remodelación vial:</strong> Ejecutar obras para ampliar y modernizar la Avenida Costanera (Humberto Canale), recuperando su doble sentido de circulación para mejorar la fluidez del tránsito. Posteriormente, se proyectará su conexión con otra avenida estratégica, conformando un circuito interconectado de avenidas que optimice la movilidad urbana, potencie el turismo y brinde mayor accesibilidad a los distintos barrios y zonas costeras.</li>
-
-                </ul>
-            </div>
-        </div>
-
-        <!-- Salud -->
-        <div class="acordeon-item">
-            <button class="acordeon-titulo">
-                <i class="fas fa-heartbeat"></i>
-                <h3>Salud</h3>
-                <span class="acordeon-icono"><i class="fas fa-chevron-down"></i></span>
-            </button>
-            <div class="acordeon-contenido">
-                <ul class="propuestas-list">
-                    <li><strong>CAPS y SAPS más cerca del vecino: </strong>Fortalecer el funcionamiento de los CAPS y SAPS a través de la ampliación de horarios de atención y el incremento de la capacidad operativa. Buscando así descentralizar la demanda del hospital local y garantizar un acceso más rápido, cercano y eficiente a los servicios de salud para todos los vecinos.</li>
-                    <li><strong>Gestión coordinada en salud: </strong>Reforzar el trabajo conjunto entre el municipio y el gobierno provincial, con especial enfoque en el reordenamiento y seguimiento de la atención médica.</li>
-                    <li><strong>Mejores sueldos para el personal de salud: </strong>Impulsar la revisión del esquema de remuneraciones del personal de salud, con el objetivo de mejorar las condiciones salariales de médicos, enfermeros y demás trabajadores del sector.</li>
-                    
-                </ul>
-            </div>
-        </div>
-
-        <!-- Recursos humanos -->
-        <div class="acordeon-item">
-            <button class="acordeon-titulo">
-                <i class="fas fa-users"></i>
-                <h3>Recursos Humanos</h3>
-                <span class="acordeon-icono"><i class="fas fa-chevron-down"></i></span>
-            </button>
-            <div class="acordeon-contenido">
-                <ul class="propuestas-list">
-                    <li><strong>Capacitación y mérito en el empleo municipal: </strong>Impulsar un programa continuo de capacitaciones destinadas al personal municipal, con el objetivo de mejorar la eficiencia, la atención al público y la profesionalización de la gestión pública. Además, se propone establecer un sistema de concursos públicos con exámenes de aptitud para todos los cargos municipales, promoviendo la transparencia, la equidad y el mérito como principios rectores del empleo público.</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Transporte -->
-        <div class="acordeon-item">
-            <button class="acordeon-titulo">
-                <i class="fas fa-bus"></i>
-                <h3>Transporte</h3>
-                <span class="acordeon-icono"><i class="fas fa-chevron-down"></i></span>
-            </button>
-            <div class="acordeon-contenido">
-                <ul class="propuestas-list">
-                    
-                    <li><strong>Modernización del tranporte público: </strong>Vamos a impulsar una nueva licitación del transporte público urbano para que puedan participar otras empresas y así fomentar la competencia en calidad de servicio y precio del boleto. Queremos ampliar los recorridos, especialmente hacia los barrios que hoy casi no tienen cobertura, y revisar el uso actual de los subsidios, asegurando que cada peso se utilice de forma eficiente en beneficio de los usuarios.</li>
-                    
-                    
-                </ul>
-            </div>
-        </div>
-
-        <!-- Producción -->
-        <div class="acordeon-item">
-            <button class="acordeon-titulo">
-                <i class="fas fa-industry"></i>
-                <h3>Producción</h3>
-                <span class="acordeon-icono"><i class="fas fa-chevron-down"></i></span>
-            </button>
-            <div class="acordeon-contenido">
-                <ul class="propuestas-list">
-
-                    <li><strong>Programa Municipal de Perforaciones Rurales:</strong> Implementar un plan que permita a los vecinos de zonas rurales acceder a perforaciones de agua en sus propios campos, evitando que deban abandonar su ámbito rural para abastecerse. Este programa estará orientado a mejorar la calidad de vida y la productividad de las familias rurales.</li>
-                    <li><strong>Apoyo a pequeños productores:</strong> Brindar asistencia y herramientas para mejorar la comercialización de productos locales, impulsando ferias, mercados y canales de venta directa al consumidor. Se buscará potenciar tanto la producción agrícola como la ganadera.</li>
-                    <li><strong>Fomento de remates ganaderos:</strong> Colaborar en la organización y promoción de remates que faciliten la venta de ganado de pequeños y medianos productores, generando mejores condiciones de comercialización y fortaleciendo la economía rural.</li>
-
-                </ul>
-            </div>
-        </div>
-
-        <!-- Turismo-Deporte -->
-        <div class="acordeon-item">
-            <button class="acordeon-titulo">
-                <i class="fas fa-umbrella-beach"></i>
-                <h3>Turismo y Deporte</h3>
-                <span class="acordeon-icono"><i class="fas fa-chevron-down"></i></span>
-            </button>
-            <div class="acordeon-contenido">
-                <ul class="propuestas-list">
-                    <li><strong>Reestructuración y ampliación de la playa municipal:</strong> Renovar las instalaciones y el entorno de la playa, incorporando obras de embellecimiento, nueva infraestructura de servicios (baños, duchas, áreas de descanso y sombra), iluminación y senderos peatonales seguros. Además, se reactivará y pondrá en valor la pileta flotante, brindando a los vecinos y turistas un espacio moderno, seguro y atractivo para el disfrute durante todo el año.</li>
-
-                     <!-- 
-                    <li>Remodelación y extensión de la calle Florida hasta la zona de la ex-piscicultura, con el objetivo de integrar nuevos espacios al circuito turístico y mejorar la conectividad.</li>-->
-                    <li><strong>Baños Públicos Modernos y Accesibles: </strong>Instalación de baños públicos en zonas de recreación y puntos estratégicos del eje central de la ciudad, como plazas, costanera y espacios públicos de alta concurrencia.</li>
-                    
-                    <!--<li>Incentivar el deporte, explotar el río. (privatizar la fiesta de la naranja y los carnavales)</li>-->
-                    <!--<li>Colaboración para incentivar las mejoras estructurales a los clubes locales, beneficiando disciplinas como fútbol, tenis, básquet y otras.</li>-->
-                    <li><strong>Apoyo a clubes locales:</strong> Brindar acompañamiento y facilidades para que los clubes y asociaciones deportivas de la ciudad puedan gestionar y concretar mejoras en su infraestructura. El objetivo es fortalecer disciplinas como fútbol, tenis, básquet y otras, fomentando el deporte y la participación comunitaria.</li>
-
-                    <li><strong>Río Paraná, Motor de Deportes y Turismo: </strong>Promoción activa del uso del río Paraná para la práctica de deportes acuáticos como wakeboard, esquí náutico y competencias con embarcaciones deportivas, mediante incentivos y eventos organizados.</li>
-
-                </ul>
-            </div>
-        </div>
-
-        <!-- Desarrollo económico -->
-        <div class="acordeon-item">
-            <button class="acordeon-titulo">
-                <i class="fas fa-chart-line"></i>
-                <h3>Desarrollo Económico</h3>
-                <span class="acordeon-icono"><i class="fas fa-chevron-down"></i></span>
-            </button>
-            <div class="acordeon-contenido">
-                <ul class="propuestas-list">
-                    <li><strong>Incentivo a inversiones y desarrollo:</strong> Facilitar la llegada de inversiones mediante la eliminación de trabas burocráticas y la reducción de tasas municipales. Implementaremos un régimen de exención o reducción de impuestos destinado a incentivar la instalación, ampliación o reconversión de industrias y comercios que impulsen la industrialización y el desarrollo económico de Bella Vista.</li>
-
-                    <li><strong>Optimización del Presupuesto y Alivio Fiscal: </strong>Reorganizaremos el presupuesto, priorizando áreas clave como salud, educación, infraestructura y seguridad. A partir de esta optimización, proponemos una reducción progresiva de impuestos municipales, especialmente para comerciantes, emprendedores, productores rurales e industrias locales.</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Desarrollo Social -->
-        <div class="acordeon-item">
-            <button class="acordeon-titulo">
-                <i class="fas fa-hands-helping"></i>
-                <h3>Desarrollo Social</h3>
-                <span class="acordeon-icono"><i class="fas fa-chevron-down"></i></span>
-            </button>
-            <div class="acordeon-contenido">
-                <ul class="propuestas-list">
-                    <li><strong>Viviendas con transparencia total: </strong>Las viviendas otorgadas al municipio por INVICO se entregarán sin acomodos ni favoritismos, sino que serán mediante sorteos genuinos y transmisión en vivo para asegurar total transparencia</li>
-                    <li><strong>Asistencia para traslados por salud: </strong>Brindar apoyo municipal a vecinos que necesiten trasladarse a la ciudad de Corrientes por motivos de salud, facilitando el transporte y asistencia durante el proceso. Además, se incorporará una estadía municipal para alojar temporalmente a pacientes y acompañantes, asegurando contención, comodidad y un entorno seguro durante su permanencia.</li>
-                    <li><strong>Apoyo solidario a comedores comunitarios e iglesias: </strong>Apoyo logístico y de coordinación a comedores comunitarios administrados por iglesias y organizaciones civiles, facilitando el acceso a donaciones de particulares y empresas, sin utilizar fondos públicos, fomentando la solidaridad voluntaria y el trabajo conjunto en beneficio de quienes más lo necesitan.</li>
-                    <li><strong>Bienestar Animal y Control Responsable: </strong>Apoyo a animales callejeros con la creación de un centro de rescate temporal con atención veterinaria de urgencia, programas permanentes de castraciones masivas y campañas de concientización sobre tenencia responsable. Se aplicará estrictamente la Ley 14.346, con multas y sanciones a quienes abandonen o maltraten animales. El plan contará con la colaboración de voluntarios, protectoras y el Municipio, con el objetivo de brindar refugio, salud y una oportunidad de adopción responsable, reduciendo progresivamente la población callejera y garantizando el cumplimiento de la ley.</li>
-                    
-                </ul>
-            </div>
-        </div>
-
-        <!-- Educación-Cultura -->
-        <div class="acordeon-item">
-            <button class="acordeon-titulo">
-                <i class="fas fa-graduation-cap"></i>
-                <h3>Educación y Cultura</h3>
-                <span class="acordeon-icono"><i class="fas fa-chevron-down"></i></span>
-            </button>
-            <div class="acordeon-contenido">
-                <ul class="propuestas-list">
-                    <li><strong>Incentivos para estudiantes de secundarias: </strong>Impulsar la creación de un programa de becas destinado a premiar a los estudiantes del último año del nivel secundario con los mejores promedios académicos de la ciudad. El beneficio incluirá el apoyo necesario para que puedan continuar su formación, con el compromiso de que, una vez recibidos, presten servicios profesionales en la comunidad de Bella Vista, contribuyendo así a su desarrollo y bienestar.</li>
-                    
-                    <li><strong>Cursos y Seminarios: </strong>Impulsar programas de capacitación y seminarios especializados en el uso de drones, inteligencia artificial y nuevas tecnologías, orientados a su aplicación práctica en el ámbito laboral, productivo y emprendedor.</li>
-
-                    <li><strong>Fomento de Olimpiadas en Bella Vista:</strong> Promover la organización anual de olimpiadas académicas, deportivas y culturales que involucren a escuelas, clubes e instituciones locales. Estas competencias buscarán incentivar el espíritu de superación, la integración entre barrios y el descubrimiento de nuevos talentos, posicionando a Bella Vista como un referente regional en eventos educativos y recreativos.</li>
-
-                    <!--<li>Reacondicionamiento del museo y provisión de los materiales necesarios para su funcionamiento, priorizando su puesta en valor como espacio científico, educativo y turístico de relevancia para la ciudad.</li>-->
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Sección Candidato -->
-<!-- Sección Equipo -->
-<section id="equipo" class="equipo">
-    <h2>Nuestro Equipo</h2>
     
-    <!-- Fila Superior: Intendente y Vice -->
-    <div class="equipo-fila equipo-superior">
-        <!-- Intendente -->
-        <div class="miembro-card" onclick="toggleInfo(this)">
-            <div class="miembro-front">
-                <div class="miembro-imagen-container">
-                    <img src="assets/candidatos/intendente.png" alt="Intendente" class="miembro-imagen">
-                    <div class="miembro-badge">Intendente</div>
-                </div>
-                <h3>Mauricio José<br>Silanes Guido</h3>
-                <div class="miembro-comisiones">Gestión Municipal</div>
-                <div class="miembro-vermas">
-                    <span>Ver más</span>
-                    <i class="fas fa-chevron-right"></i>
-                </div>
-            </div>
-            <div class="miembro-info">
-                <p>Soy un trabajador del sector privado y sé lo que significa ganarse el sustento con esfuerzo. Estoy cansado de ver a vecinos que la pasan mal por las malas políticas de siempre. Por eso decidí involucrarme: quiero un municipio que facilite, que escuche y que trabaje para el que produce y genera empleo, no para sostener privilegios.</p>
-                
-                <a class="btn-vermas">Volver</a>
-            </div>
-        </div>
-
-        <!-- Vice-Intendente -->
-        <div class="miembro-card" onclick="toggleInfo(this)">
-            <div class="miembro-front">
-                <div class="miembro-imagen-container">
-                    <img src="assets/candidatos/vice.png" alt="Vice-Intendente" class="miembro-imagen">
-                    <div class="miembro-badge">Vice-Intendente</div>
-                </div>
-                <h3>Gabriela<br>Correa</h3>
-                <div class="miembro-comisiones">Simplificación Burocrática</div>
-                <div class="miembro-vermas">
-                    <span>Ver más</span>
-                    <i class="fas fa-chevron-right"></i>
-                </div>
-            </div>
-            <div class="miembro-info">
-                <p>Toda mi vida trabajé en el sector privado. Fui comerciante en el rubro de la estética y conozco de primera mano lo difícil que es sostener un emprendimiento con tantas trabas e impuestos. No vengo de la política, vengo del esfuerzo cotidiano. Quiero un municipio que deje de asfixiar a los que producen y que empiece a estar del lado de quienes generan trabajo.</p>
-                
-                <a class="btn-vermas">Volver</a>
-            </div>
-        </div>
+    <div class="fullscreen-image">
+        <img src="assets/img/virginia.png" alt="Imagen de escritorio" class="desktop-img" onerror="handleImageError(this, 'desktop')">
+        <img src="assets/img/virginia-2.png" alt="Imagen móvil" class="mobile-img" onerror="handleImageError(this, 'mobile')">
     </div>
 
-    <!-- Fila Media: 3 Concejales -->
-    <div class="equipo-fila equipo-medio">
-        <!-- Concejal 1 -->
-        <div class="miembro-card" onclick="toggleInfo(this)">
-            <div class="miembro-front">
-                <div class="miembro-imagen-container">
-                    <img src="assets/candidatos/concejal1.png" alt="Concejal 1" class="miembro-imagen">
-                    <div class="miembro-badge">Concejal</div>
-                </div>
-                <h3>Marcelo<br>Zalazar Geschwind</h3>
-                <div class="miembro-comisiones">Infraestructura</div>
-                <div class="miembro-vermas">
-                    <span>Ver más</span>
-                    <i class="fas fa-chevron-right"></i>
-                </div>
-            </div>
-            <div class="miembro-info">
-                <p>Soy Ingeniero Agrónomo y toda mi vida estuvo ligada al campo, al trabajo rural y a la producción. No vengo de una estructura política, vengo de la tierra y del sacrificio que implica sostener el interior productivo. Me involucré porque estoy convencido de que necesitamos una gestión que defienda al que trabaja y apuesta al desarrollo de verdad.</p>
-                
-                <a class="btn-vermas">Volver</a>
-            </div>
-        </div>
-
-        <!-- Concejal 2 -->
-        <div class="miembro-card" onclick="toggleInfo(this)">
-            <div class="miembro-front">
-                <div class="miembro-imagen-container">
-                    <img src="assets/candidatos/concejal2.png" alt="Concejal 2" class="miembro-imagen">
-                    <div class="miembro-badge">Concejal</div>
-                </div>
-                <h3>Malena Abril<br>Cardozo</h3>
-                <div class="miembro-comisiones">Educación</div>
-                <div class="miembro-vermas">
-                    <span>Ver más</span>
-                    <i class="fas fa-chevron-right"></i>
-                </div>
-            </div>
-            <div class="miembro-info">
-                <p>Desde los 18 años me dedico a la docencia en el ámbito privado. Este año abrí mi propio instituto porque creo en el mérito, la libertad y la responsabilidad individual. No vengo de la política: soy parte de una generación que quiere crecer, que no espera que le regalen nada y que está cansada de ver cómo se administra mal lo público. Me sumé para aportar desde el compromiso y las ideas.</p>
-                
-                <a class="btn-vermas">Volver</a>
-            </div>
-        </div>
-
-        <!-- Concejal 3 -->
-        <div class="miembro-card" onclick="toggleInfo(this)">
-            <div class="miembro-front">
-                <div class="miembro-imagen-container">
-                    <img src="assets/candidatos/concejal3.png" alt="Concejal 3" class="miembro-imagen">
-                    <div class="miembro-badge">Concejal</div>
-                </div>
-                <h3>Fabian Ernesto<br>Galarza</h3>
-                <div class="miembro-comisiones">Eficiencia Administrativa</div>
-                <div class="miembro-vermas">
-                    <span>Ver más</span>
-                    <i class="fas fa-chevron-right"></i>
-                </div>
-            </div>
-            <div class="miembro-info">
-                <p>Me formé en el ámbito alimenticio y productivo. Me especialicé como auditor en normas ISO, tanto en la gestión pública como privada. No vengo de la política, vengo del trabajo técnico, de controlar procesos y de ver dónde se desperdician recursos. Me sumé porque creo en una gestión eficiente, con controles reales, sin acomodos y con responsabilidad en cada peso que se gasta.</p>
-                
-                <a class="btn-vermas">Volver</a>
-            </div>
-        </div>
+    <div class="error-message" id="errorMessage">
+        <h2>Error al cargar la imagen</h2>
+        <p>No se pudo cargar la imagen. Verifique que la ruta sea correcta.</p>
+        <p>Ruta intentada: <span id="imagePath"></span></p>
     </div>
-
-    <!-- Fila Inferior: 3 Concejales -->
-    <div class="equipo-fila equipo-inferior">
-        <!-- Concejal 4 -->
-        <div class="miembro-card" onclick="toggleInfo(this)">
-            <div class="miembro-front">
-                <div class="miembro-imagen-container">
-                    <img src="assets/candidatos/concejal4.png" alt="Concejal 4" class="miembro-imagen">
-                    <div class="miembro-badge">Concejal</div>
-                </div>
-                <h3>Amorina Ayelen<br>Nuñez</h3>
-                <div class="miembro-comisiones">Bienestar Animal · Espacios Públicos</div>
-                <div class="miembro-vermas">
-                    <span>Ver más</span>
-                    <i class="fas fa-chevron-right"></i>
-                </div>
-            </div>
-            <div class="miembro-info">
-                <p>Estudio para ser docente, tengo mi propio emprendimiento y hace años me dedico a cuidar animales en situación de abandono. No vengo a repetir discursos ni a subirme a ningún sillón: vengo de andar las calles, de meterme donde nadie va, de ayudar con lo que tengo. Me sumé porque creo que la política necesita menos excusas y más gente de a pie, con ganas reales de cambiar lo que está mal, desde adentro y sin doble discurso.</p>
-                
-                <a class="btn-vermas">Volver</a>
-            </div>
-        </div>
-
-        <!-- Concejal 5 -->
-        <div class="miembro-card" onclick="toggleInfo(this)">
-            <div class="miembro-front">
-                <div class="miembro-imagen-container">
-                    <img src="assets/candidatos/concejal5.png" alt="Concejal 5" class="miembro-imagen">
-                    <div class="miembro-badge">Concejal</div>
-                </div>
-                <h3>Martin Guillermo<br>Buloz</h3>
-                <div class="miembro-comisiones">Salud · Desarrollo Social</div>
-                <div class="miembro-vermas">
-                    <span>Ver más</span>
-                    <i class="fas fa-chevron-right"></i>
-                </div>
-            </div>
-            <div class="miembro-info">
-                <p>Soy médico y trabajo en el hospital local, donde veo a diario el esfuerzo del personal de salud frente a una demanda creciente. Desde el municipio vamos a fortalecer los CAPS y SAPS, ampliar horarios y acercar la atención a cada barrio. También impulsaré la inclusión de quienes enfrentan enfermedades crónicas, discapacidades o situaciones de vulnerabilidad.</p>
-                
-                <a class="btn-vermas">Volver</a>
-            </div>
-        </div>
-
-        <!-- Concejal 6 -->
-        <div class="miembro-card" onclick="toggleInfo(this)">
-            <div class="miembro-front">
-                <div class="miembro-imagen-container">
-                    <img src="assets/candidatos/concejal6.png" alt="Concejal 6" class="miembro-imagen">
-                    <div class="miembro-badge">Concejal</div>
-                </div>
-                <h3>Eve Dahiana<br>Romero</h3>
-                <div class="miembro-comisiones">Emprendimientos · Deporte · Turismo</div>
-                <div class="miembro-vermas">
-                    <span>Ver más</span>
-                    <i class="fas fa-chevron-right"></i>
-                </div>
-            </div>
-            <div class="miembro-info">
-                <p>Soy técnica radióloga y emprendedora. Apoyo las ideas de la libertad y el esfuerzo individual, porque sé que con menos trabas y más oportunidades nuestra ciudad puede crecer. Quiero un municipio que impulse a comerciantes, emprendedores y trabajadores, y que vea en el turismo un motor económico, no un obstáculo.</p>
-                
-                <a class="btn-vermas">Volver</a>
-            </div>
-        </div>
-    </div>
-</section>
-
-        <!-- Mapa en Google Maps -->
-        <section id="ubicacion">
-            <div class="mapa-container">
-                <h3 class="mapa-titulo">Sede de "La Libertad Avanza Bella Vista"</h3>
-                <div class="mapa-wrapper">
-                    <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1450.6527149221545!2d-59.042885260695634!3d-28.50786411766383!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x944fab313a9e2b13%3A0x745cddeee0084e35!2sC.%20Salta%20818%2C%20W3432%20Bella%20Vista%2C%20Corrientes!5e0!3m2!1ses!2sar!4v1749098251474!5m2!1ses!2sar" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" 
-                        width="600" 
-                        height="450" 
-                        style="border:0;" 
-                        allowfullscreen="" 
-                        loading="lazy"
-                        class="mapa-iframe">
-                    </iframe>
-                </div>
-                <a href="https://maps.app.goo.gl/s2zZUVGkNgXE1yzH6" target="_blank" class="btn-mapa">
-                    <i class="fas fa-map-marker-alt"></i> Cómo llegar
-                </a>
-            </div>
-        </section>
-
-        <!-- Galeria 
-
-        <section id="galeria">
-            <div class="galeria">
-                <h2 class="galeria-titulo">Nuestra Sede en Imágenes</h2>
-                <div class="galeria-grid">
-                    <div class="galeria-item">
-                        <img src="assets/galeria/sede-1.jpg" alt="Fachada de la sede" loading="lazy">
-                        <div class="galeria-overlay">
-                            <p>Fachada principal</p>
-                        </div>
-                    </div>
-                    
-                    <div class="galeria-item">
-                        <img src="assets/galeria/sede-2.jpg" alt="Interior de la sede" loading="lazy">
-                        <div class="galeria-overlay">
-                            <p>Sala de reuniones</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <a href="#" class="btn-galeria">
-                    <i class="fas fa-images"></i> Ver galería completa
-                </a>
-            </div>
-        </section>-->
-
-        <!-- Sección Enlaces Rápidos -->
-        <section id="enlaces" class="enlaces-bio">
-            <div class="links-bio">
-                <h2>Contacto</h2>
-                <p>¡Javier Milei y Lisandro Almirón te necesitan!</p>
-
-                <!-- Formulario -->
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSf6m9tn4ZWvFD8AfBj0c3FQN9SIaD8OQV-PxbBZ1oqM-W9bMA/viewform" target="_blank" class="link-bio form">
-                    <i class="fas fa-edit"></i>
-                    <div class="link-text">
-                        Fiscaliza por La Libertad Avanza
-                        <span class="link-subtext">Proximas Elecciones el " 31 de Agosto 2025 "</span>
-                    </div>
-                </a>
-                
-                <h2>Redes Sociales</h2>
-
-                <!-- WhatsApp (Chat privado) -->
-                <a href="https://wa.me/+543777313897" target="_blank" class="link-bio whatsapp">
-                    <i class="fab fa-whatsapp"></i>
-                    <div class="link-text">
-                        WhatsApp (Chat Privado)
-                        
-                    </div>
-                </a>
-                
-                <!-- WhatsApp (Canal) -->
-                <a href="https://whatsapp.com/channel/0029VaOQEe0KQuJSj18kAt16" target="_blank" class="link-bio whatsapp-channel">
-                    <i class="fab fa-whatsapp"></i>
-                    <div class="link-text">
-                        WhatsApp (Canal)
-                        
-                    </div>
-                </a>
-
-                <!-- Instagram -->
-                <a href="https://www.instagram.com/lalibertadavanzabvctes.oficial" target="_blank" class="link-bio instagram">
-                    <i class="fab fa-instagram"></i>
-                    <div class="link-text">
-                        Instagram
-                        
-                    </div>
-                </a>
-
-                <!-- Facebook -->
-                <a href="https://www.facebook.com/profile.php?id=61576957352010" target="_blank" class="link-bio facebook">
-                    <i class="fab fa-facebook-f"></i>
-                    <div class="link-text">
-                        Facebook
-                        
-                    </div>
-                </a>
-
-                <!-- TikTok -->
-                <a href="https://www.tiktok.com/@lalibertadavanzabvctes?is_from_webapp=1&sender_device=pc" target="_blank" class="link-bio tiktok">
-                    <i class="fab fa-tiktok"></i>
-                    <div class="link-text">
-                        TikTok
-                        
-                    </div>
-                </a>
-
-                <!-- Twitter/X -->
-                <a href="https://www.twitter.com/LLABVCorrientes" target="_blank" class="link-bio twitter">
-                    <i class="fab fa-twitter"></i>
-                    <div class="link-text">
-                        Twitter/X
-                        
-                    </div>
-                </a>
-
-                <!-- YouTube -->
-                <a href="http://www.youtube.com/@LaLibertadAvanzaBellaVistaCtes" target="_blank" class="link-bio youtube">
-                    <i class="fab fa-youtube"></i>
-                    <div class="link-text">
-                        YouTube
-                        
-                    </div>
-                </a>
-
-                <!-- Threads -->
-                <a href="https://www.threads.net/@lalibertadavanzabvctes.oficial" target="_blank" class="link-bio threads">
-                    <img src="assets/icon/thread-icon.svg" alt="Threads" class="threads-icon">
-                    <div class="link-text">
-                        Threads
-                        
-                    </div>
-                </a>
-            </div>
-        </section>
-    </main>
-
-    
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; <span id="current-year">2025</span> La Libertad Avanza Bella Vista, Ctes. Todos los derechos reservados.</p>
-    </footer>
 
     <script>
-        document.getElementById('current-year').textContent = new Date().getFullYear();
-    </script>
+        // Función para manejar errores de carga de imágenes
+        function handleImageError(img, type) {
+            console.error('Error cargando imagen:', img.src);
+            
+            // Mostrar mensaje de error con la ruta que falló
+            document.getElementById('imagePath').textContent = img.src;
+            document.getElementById('errorMessage').style.display = 'block';
+            
+            // Intentar cargar la otra imagen como respaldo
+            if (type === 'mobile') {
+                document.querySelector('.desktop-img').style.display = 'block';
+            } else if (type === 'desktop') {
+                // Si estamos en móvil y falla la imagen desktop, intentar mostrar la móvil
+                if (window.innerWidth <= 768) {
+                    document.querySelector('.mobile-img').style.display = 'block';
+                }
+            }
+            
+            // Ocultar loader
+            document.body.classList.add('loaded');
+            setTimeout(function() {
+                document.querySelector('.loader').style.display = 'none';
+            }, 500);
+        }
 
-    <script src="js/menu.js"></script>
-    <!--<script src="js/carrusel.js"></script>-->
+        // Ocultar loader cuando las imágenes se carguen
+        window.addEventListener('load', function() {
+            // Verificar si al menos una imagen se cargó correctamente
+            const desktopLoaded = document.querySelector('.desktop-img').complete && document.querySelector('.desktop-img').naturalHeight !== 0;
+            const mobileLoaded = document.querySelector('.mobile-img').complete && document.querySelector('.mobile-img').naturalHeight !== 0;
+            
+            if (desktopLoaded || mobileLoaded) {
+                document.body.classList.add('loaded');
+                document.body.classList.remove('loading');
+                
+                // Ocultar completamente el loader después de la transición
+                setTimeout(function() {
+                    document.querySelector('.loader').style.display = 'none';
+                }, 500);
+            } else {
+                // Si ninguna imagen cargó, mostrar error después de un tiempo
+                setTimeout(function() {
+                    handleImageError({src: 'assets/img/virginia.png o assets/img/virginia-2.png'}, 'both');
+                }, 3000);
+            }
+        });
+        
+        // Detectar cambios de orientación en dispositivos móviles
+        window.addEventListener('orientationchange', function() {
+            // Recargar la página al cambiar de orientación para asegurar que se muestre la imagen correcta
+            setTimeout(function() {
+                window.location.reload();
+            }, 300);
+        });
+    </script>
 </body>
 </html>
